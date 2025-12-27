@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="CharacterData" load_steps=3 format=3 uid="uid://cte5nbkojbj45"]
+
+[ext_resource type="Script" uid="uid://bpmqbkevarnrj" path="res://Scripts/character_data.gd" id="1_gk851"]
+[ext_resource type="SpriteFrames" uid="uid://sed35cmo3l34" path="res://Resources/Enemies/zombie_frames.tres" id="1_j10f2"]
+
+[resource]
+script = ExtResource("1_gk851")
+character_name = "Zombie"
+attack_animation = ExtResource("1_j10f2")
+metadata/_custom_type_script = "uid://bpmqbkevarnrj"
