@@ -1,0 +1,90 @@
+[gd_scene load_steps=6 format=3 uid="uid://bhrxxgro2ughb"]
+
+[ext_resource type="Script" uid="uid://d3rmyef51n10d" path="res://Scripts/BattleScene.gd" id="1_scene"]
+[ext_resource type="Script" uid="uid://coujgg4n6jxxm" path="res://Scripts/BattleManager.gd" id="2_battle"]
+[ext_resource type="Script" uid="uid://dkju01w0vhr8o" path="res://Scripts/Character.gd" id="3_char"]
+[ext_resource type="PackedScene" uid="uid://de88vp3r8xhe1" path="res://Scenes/character_body_2d.tscn" id="3_u810s"]
+[ext_resource type="PackedScene" uid="uid://bpnnlqk4lpjod" path="res://Scenes/enemy_body_2d.tscn" id="4_8uoga"]
+
+[node name="root" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_scene")
+
+[node name="Background" type="Sprite2D" parent="."]
+position = Vector2(-1.9999962, 2)
+scale = Vector2(1.0957031, 1.0492682)
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(1, 0)
+offset = Vector2(0, 100)
+zoom = Vector2(1.03, 1.03)
+
+[node name="BattleManager" type="Node" parent="."]
+script = ExtResource("2_battle")
+
+[node name="Player" type="Node" parent="."]
+script = ExtResource("3_char")
+character_name = "玩家"
+attack_power = 25
+
+[node name="CharacterBody2D" parent="Player" instance=ExtResource("3_u810s")]
+position = Vector2(-220, 250)
+
+[node name="Enemy" type="Node" parent="."]
+script = ExtResource("3_char")
+character_name = "敌人"
+
+[node name="EnemyBody2D" parent="Enemy" instance=ExtResource("4_8uoga")]
+position = Vector2(207, 250)
+
+[node name="UI" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -200.0
+offset_top = -150.0
+offset_right = 200.0
+offset_bottom = 150.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Title" type="Label" parent="UI"]
+layout_mode = 2
+text = "回合制战斗"
+horizontal_alignment = 1
+
+[node name="TurnLabel" type="Label" parent="UI"]
+layout_mode = 2
+text = "当前回合：玩家"
+horizontal_alignment = 1
+
+[node name="PlayerInfo" type="Label" parent="UI"]
+layout_mode = 2
+text = "玩家：血量 100/100"
+horizontal_alignment = 1
+
+[node name="EnemyInfo" type="Label" parent="UI"]
+layout_mode = 2
+text = "敌人：血量 80/80"
+horizontal_alignment = 1
+
+[node name="HSeparator" type="HSeparator" parent="UI"]
+layout_mode = 2
+
+[node name="AttackButton" type="Button" parent="UI"]
+layout_mode = 2
+text = "攻击"
+
+[node name="StatusLabel" type="Label" parent="UI"]
+layout_mode = 2
+horizontal_alignment = 1
+
+[connection signal="battle_ended" from="BattleManager" to="." method="_on_battle_ended"]
+[connection signal="enemy_attack_animation" from="BattleManager" to="." method="_on_enemy_attack_animation"]
+[connection signal="player_attack_animation" from="BattleManager" to="." method="_on_player_attack_animation"]
+[connection signal="turn_changed" from="BattleManager" to="." method="_on_turn_changed"]
+[connection signal="pressed" from="UI/AttackButton" to="." method="_on_attack_button_pressed"]
