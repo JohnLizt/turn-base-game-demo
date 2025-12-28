@@ -1,0 +1,20 @@
+[gd_scene load_steps=2 format=3 uid="uid://moi71feurpqp"]
+
+[ext_resource type="Script" uid="uid://787rjgoqa2e2" path="res://Scripts/map.gd" id="1_s486e"]
+
+[node name="Map" type="Node2D"]
+script = ExtResource("1_s486e")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="AttackButton" type="Button" parent="Control"]
+layout_mode = 0
+text = "进入战斗"
+
+[connection signal="pressed" from="Control/AttackButton" to="." method="start_combat"]

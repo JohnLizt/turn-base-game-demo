@@ -1,11 +1,13 @@
 # TODO
 
+- [ ] main map
+  - [x] dynamic load battle scene
+  - [ ] consecutive battles
 - [ ] battle system
+  - [x] dynamic load character
   - [x] character
-    - [x] basic_attr
-    - [x] dynamic load tres
-    - [x] player
-    - [x] enemy
-      - [ ] multi_enemy
+    - [ ] ~~multi_character~~
+  - [ ] enemy
+    - [ ] multi_enemies
   - [ ] skills
     - [ ] battle effect (buff / dot)

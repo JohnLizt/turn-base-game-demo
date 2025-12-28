@@ -1,17 +1,14 @@
-[gd_scene load_steps=6 format=3 uid="uid://bhrxxgro2ughb"]
+[gd_scene load_steps=3 format=3 uid="uid://bhrxxgro2ughb"]
 
 [ext_resource type="Script" uid="uid://d3rmyef51n10d" path="res://Scripts/BattleScene.gd" id="1_scene"]
 [ext_resource type="Script" uid="uid://coujgg4n6jxxm" path="res://Scripts/BattleManager.gd" id="2_battle"]
-[ext_resource type="PackedScene" uid="uid://de88vp3r8xhe1" path="res://Scenes/character_2d.tscn" id="3_u810s"]
-[ext_resource type="Resource" uid="uid://cac5iv68wxobd" path="res://Resources/Characters/madoka.tres" id="5_u810s"]
-[ext_resource type="Resource" uid="uid://cte5nbkojbj45" path="res://Resources/Enemies/zombie.tres" id="7_8uoga"]
 
-[node name="root" type="Control"]
+[node name="BattleScene" type="Control"]
 layout_mode = 3
 anchors_preset = 0
 script = ExtResource("1_scene")
 
-[node name="BattleManager" type="Node" parent="."]
+[node name="BattleManager" type="Node2D" parent="."]
 script = ExtResource("2_battle")
 
 [node name="Background" type="Sprite2D" parent="."]
@@ -22,19 +19,6 @@ scale = Vector2(1.0957031, 1.0492682)
 position = Vector2(1, 0)
 offset = Vector2(0, 100)
 zoom = Vector2(1.03, 1.03)
-
-[node name="Players" type="Node" parent="."]
-
-[node name="MainControl" parent="Players" instance=ExtResource("3_u810s")]
-position = Vector2(-250, 250)
-stats = ExtResource("5_u810s")
-
-[node name="Enemies" type="Node" parent="."]
-
-[node name="Enemy" parent="Enemies" instance=ExtResource("3_u810s")]
-position = Vector2(250, 250)
-scale = Vector2(-1, 1)
-stats = ExtResource("7_8uoga")
 
 [node name="UI" type="VBoxContainer" parent="."]
 layout_mode = 1

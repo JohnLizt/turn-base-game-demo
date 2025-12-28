@@ -8,15 +8,33 @@ extends Control
 @onready var enemy_info = $UI/EnemyInfo
 @onready var attack_button = $UI/AttackButton
 @onready var status_label = $UI/StatusLabel
+@onready var background = $Background
 
-# 目前只有一个角色
-@onready var player = $Players/MainControl
-@onready var enemy = $Enemies/Enemy
+# 角色引用（动态获取）
+var player: Character = null
+var enemy: Character = null
 
+# 角色预制体场景路径
+var character_prefab: PackedScene = load("res://Scenes/character_2d.tscn")
 
-func _ready():
-	# 初始化UI
+func setup_battle(player_team: Array[CharacterData], enemy_team: Array[CharacterData], bg_texture: Texture2D):
+	# 1. 更换背景 
+	if background and bg_texture:
+		background.texture = bg_texture
+	
+	# 2. 告诉 BattleManager 本次战斗的数据（BattleManager 会负责清理和创建节点）
+	battle_manager.init_battle(player_team, enemy_team, character_prefab)
+	
+	# 3. 等待角色创建完成后，获取角色引用（暂时一个角色）
+	await get_tree().process_frame
+	if battle_manager.players.size() > 0:
+		player = battle_manager.players[0]
+	if battle_manager.enemies.size() > 0:
+		enemy = battle_manager.enemies[0]
+	
+	# 4. 更新UI
 	update_ui()
+
 
 # 回合改变
 func _on_turn_changed(current_character: Character):
