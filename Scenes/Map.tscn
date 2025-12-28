@@ -12,9 +12,3 @@ layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
-
-[node name="AttackButton" type="Button" parent="Control"]
-layout_mode = 0
-text = "进入战斗"
-
-[connection signal="pressed" from="Control/AttackButton" to="." method="start_combat"]

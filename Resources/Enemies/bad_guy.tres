@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="CharacterData" load_steps=5 format=3 uid="uid://c160i6y35u08a"]
+
+[ext_resource type="SpriteFrames" uid="uid://or66w5t6m64o" path="res://Resources/Enemies/bad_guy_frames.tres" id="1_8majy"]
+[ext_resource type="Script" uid="uid://bpmqbkevarnrj" path="res://Scripts/character_data.gd" id="1_stuyp"]
+[ext_resource type="Script" uid="uid://f0vrjf6eenuf" path="res://Scripts/skill.gd" id="2_8l3af"]
+[ext_resource type="Resource" uid="uid://h73yvld4a7su" path="res://Resources/Skills/attack.tres" id="4_mk0cl"]
+
+[resource]
+script = ExtResource("1_stuyp")
+character_name = "Bad Guy"
+attack_animation = ExtResource("1_8majy")
+skills = Array[ExtResource("2_8l3af")]([ExtResource("4_mk0cl")])
+attack_power = 2
+metadata/_custom_type_script = "uid://bpmqbkevarnrj"

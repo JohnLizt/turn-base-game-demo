@@ -59,5 +59,10 @@ text = "结束回合"
 layout_mode = 2
 horizontal_alignment = 1
 
+[node name="ReturnMapButton" type="Button" parent="UI"]
+visible = false
+layout_mode = 2
+text = "返回地图"
+
 [connection signal="battle_ended" from="BattleManager" to="." method="_on_battle_ended"]
 [connection signal="turn_changed" from="BattleManager" to="." method="_on_turn_changed"]

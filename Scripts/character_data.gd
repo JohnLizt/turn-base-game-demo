@@ -8,6 +8,6 @@ class_name CharacterData
 @export var skills: Array[Skill] = [] # 技能列表
 
 # 数值
-@export var max_health: int = 10
+@export var max_health: int = 5
 @export var attack_power: int = 1
 @export var max_action_point: int = 1

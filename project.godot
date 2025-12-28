@@ -14,3 +14,7 @@ config/name="turn_base_demo"
 run/main_scene="uid://moi71feurpqp"
 config/features=PackedStringArray("4.5", "Forward Plus")
 config/icon="res://icon.svg"
+
+[autoload]
+
+PlayerDataManager="*res://Scripts/player_data_manager.gd"

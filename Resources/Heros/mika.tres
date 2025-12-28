@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="HeroData" load_steps=8 format=3 uid="uid://cac5iv68wxobd"]
+
+[ext_resource type="SpriteFrames" uid="uid://b5qfkqtr7j3de" path="res://Resources/Heros/mika_frames.tres" id="1_ng0et"]
+[ext_resource type="Script" uid="uid://dc3lrxdn2n4bs" path="res://Scripts/hero_data.gd" id="2_kxtfa"]
+[ext_resource type="Script" uid="uid://f0vrjf6eenuf" path="res://Scripts/skill.gd" id="3_f51ki"]
+[ext_resource type="Resource" uid="uid://h73yvld4a7su" path="res://Resources/Skills/attack.tres" id="4_lhf6t"]
+[ext_resource type="Resource" uid="uid://bc0wx5h8vqg5q" path="res://Resources/Skills/vampire_strike.tres" id="5_1e3cu"]
+[ext_resource type="Resource" uid="uid://bmm2t54i6tv3j" path="res://Resources/Skills/whirlwind_strike.tres" id="6_tp11c"]
+[ext_resource type="Resource" uid="uid://bsjfvi035qs5r" path="res://Resources/Skills/heal.tres" id="7_g5grh"]
+
+[resource]
+script = ExtResource("2_kxtfa")
+max_stress = 5
+character_name = "Mika"
+attack_animation = ExtResource("1_ng0et")
+skills = Array[ExtResource("3_f51ki")]([ExtResource("4_lhf6t"), ExtResource("5_1e3cu"), ExtResource("6_tp11c"), ExtResource("7_g5grh")])
+max_action_point = 2
+metadata/_custom_type_script = "uid://bpmqbkevarnrj"

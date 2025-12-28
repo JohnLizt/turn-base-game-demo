@@ -38,10 +38,6 @@
 
 # Dev
 
-- [ ] main map
-  - [x] dynamic load battle scene
-  - [ ] player status inherit between battles
-  - [ ] battle settlement
 - [ ] battle system
   - [x] dynamic load character
   - [x] character
@@ -51,6 +47,15 @@
   - [ ] skills
     - [x] basic skill system
     - [ ] advance battle effect (buff / dot)
+- [ ] map
+  - [x] dynamic load battle scene
+  - [x] global player status
+  - [ ] character development
+    - [ ] skill set
+    - [ ] skill reinforce
+    - [ ] money
+- [ ] home
+  - [ ] tech tree
 
 
 

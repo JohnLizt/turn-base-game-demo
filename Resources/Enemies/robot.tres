@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="CharacterData" load_steps=5 format=3 uid="uid://c3y3ds1bvp7jx"]
+
+[ext_resource type="SpriteFrames" uid="uid://bytoikhr4rth8" path="res://Resources/Enemies/robot_frames.tres" id="1_y114x"]
+[ext_resource type="Script" uid="uid://bpmqbkevarnrj" path="res://Scripts/character_data.gd" id="2_tny2n"]
+[ext_resource type="Script" uid="uid://f0vrjf6eenuf" path="res://Scripts/skill.gd" id="3_bi8xc"]
+[ext_resource type="Resource" uid="uid://h73yvld4a7su" path="res://Resources/Skills/attack.tres" id="4_pxvxm"]
+
+[resource]
+script = ExtResource("2_tny2n")
+character_name = "Robot"
+attack_animation = ExtResource("1_y114x")
+skills = Array[ExtResource("3_bi8xc")]([ExtResource("4_pxvxm")])
+max_health = 10
+attack_power = 2
+max_action_point = 2
+metadata/_custom_type_script = "uid://bpmqbkevarnrj"

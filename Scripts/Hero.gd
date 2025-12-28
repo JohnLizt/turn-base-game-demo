@@ -13,9 +13,8 @@ func _ready():
 	
 	# 如果 stats 是 HeroData 类型，可以进行额外初始化
 	if stats is HeroData:
+		stress = 0
 		current_death_resist = stats.death_resist
-	
-	pass
 
 # 重写 UI 更新，增加压力值显示
 func update_ui():

@@ -53,6 +53,13 @@ func init_battle(player_team: Array[HeroData], enemy_team: Array[CharacterData],
 	# 等待所有角色初始化完成
 	await get_tree().process_frame
 	
+	# 继承玩家全局状态并更新 UI TODO:目前只支持单角色
+	for p in players:
+		if p is Hero:
+			p.health = PlayerDataManager.health
+			p.stress = PlayerDataManager.stress
+			p.update_ui()
+	
 	# 开始战斗
 	setup_queue()
 	next_turn()

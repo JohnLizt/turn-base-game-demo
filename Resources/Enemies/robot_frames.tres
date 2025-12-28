@@ -1,0 +1,22 @@
+[gd_resource type="SpriteFrames" load_steps=4 format=3 uid="uid://bytoikhr4rth8"]
+
+[ext_resource type="Texture2D" uid="uid://dhr6wdnhxhmen" path="res://AssetBundle/kenney_toon-characters-1/Robot/PNG/Poses/character_robot_attack0.png" id="1_5ui3o"]
+[ext_resource type="Texture2D" uid="uid://drmbhmj1qwmow" path="res://AssetBundle/kenney_toon-characters-1/Robot/PNG/Poses/character_robot_attack1.png" id="2_01h4a"]
+[ext_resource type="Texture2D" uid="uid://ptueccqer4hx" path="res://AssetBundle/kenney_toon-characters-1/Robot/PNG/Poses/character_robot_attack2.png" id="3_khvck"]
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_5ui3o")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_01h4a")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_khvck")
+}],
+"loop": false,
+"name": &"attack",
+"speed": 12.0
+}]
