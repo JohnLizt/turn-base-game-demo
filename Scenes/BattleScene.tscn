@@ -44,16 +44,6 @@ layout_mode = 2
 text = "当前回合：玩家"
 horizontal_alignment = 1
 
-[node name="PlayerInfo" type="Label" parent="UI"]
-layout_mode = 2
-text = "玩家：血量 100/100"
-horizontal_alignment = 1
-
-[node name="EnemyInfo" type="Label" parent="UI"]
-layout_mode = 2
-text = "敌人：血量 80/80"
-horizontal_alignment = 1
-
 [node name="HSeparator" type="HSeparator" parent="UI"]
 layout_mode = 2
 

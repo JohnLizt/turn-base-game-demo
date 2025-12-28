@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="HeroData" load_steps=3 format=3 uid="uid://cac5iv68wxobd"]
+
+[ext_resource type="SpriteFrames" uid="uid://b5qfkqtr7j3de" path="res://Resources/Heros/madoka_frames.tres" id="1_p0sg2"]
+[ext_resource type="Script" uid="uid://dc3lrxdn2n4bs" path="res://Scripts/hero_data.gd" id="2_rkut3"]
+
+[resource]
+script = ExtResource("2_rkut3")
+character_name = "Madoka"
+attack_animation = ExtResource("1_p0sg2")
+metadata/_custom_type_script = "uid://bpmqbkevarnrj"

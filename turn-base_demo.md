@@ -7,7 +7,7 @@
   - [x] dynamic load character
   - [x] character
     - [ ] ~~multi_character~~
-  - [ ] enemy
-    - [ ] multi_enemies
+  - [x] enemy
+    - [x] multi_enemies
   - [ ] skills
     - [ ] battle effect (buff / dot)

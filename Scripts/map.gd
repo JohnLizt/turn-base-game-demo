@@ -7,10 +7,12 @@ func start_combat():
 	get_tree().root.add_child(battle_inst)
 	
 	# 2. 准备数据 (这里加载你的 .tres 文件)
-	var players: Array[CharacterData] = [
-			load("res://Resources/Characters/madoka.tres")
+	var players: Array[HeroData] = [
+			load("res://Resources/Heros/madoka.tres")
 		]
 	var enemies: Array[CharacterData] = [
+			load("res://Resources/Enemies/zombie.tres"),
+			load("res://Resources/Enemies/zombie.tres"),
 			load("res://Resources/Enemies/zombie.tres")
 		]
 	var bg: Texture2D = load("res://AssetBundle/kenney_background-elements/PNG/castle_beige.png")
