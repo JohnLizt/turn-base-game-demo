@@ -1,0 +1,9 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://bsjfvi035qs5r"]
+
+[ext_resource type="Script" uid="uid://bpg44utypjygw" path="res://Scripts/skills/heal.gd" id="1_l36wx"]
+
+[resource]
+script = ExtResource("1_l36wx")
+skill_name = "Heal"
+action_cost = 1
+metadata/_custom_type_script = "uid://f0vrjf6eenuf"

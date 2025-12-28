@@ -119,7 +119,11 @@ func next_turn():
 		
 	current_character = action_queue.pop_front()
 	
-	# 3. 如果角色已死亡，跳过
+	# 3. 重置行动力
+	current_character.action_point = current_character.stats.max_action_point
+	current_character.update_ui()
+	
+	# 4. 如果角色已死亡，跳过
 	if not current_character.is_alive():
 		next_turn()
 		return
@@ -168,28 +172,49 @@ func use_skill(skill: Skill, targets: Array[Character]):
 	# 2. 执行技能逻辑
 	skill.execute(current_character, targets)
 	
-	# 3. 等待表现完成进入下一回合
-	#await get_tree().create_timer(0.5).timeout
-	next_turn()
+	# 3. 检查战斗是否结束
+	if check_battle_over(): return
+
+	# 4. 检查行动力
+	if current_character.action_point <= 0:
+		next_turn()
+	else:
+		# 还有行动力，如果是敌人，继续执行 AI
+		if is_enemy(current_character):
+			await execute_enemy_ai()
+		else:
+			# 如果是玩家，通过信号通知 UI 更新（可以继续选技能）
+			turn_changed.emit(current_character)
 
 func execute_enemy_ai():
+	# 延迟一点时间，避免动作太快
+	#await get_tree().create_timer(0.5).timeout
+	
 	# 简单 AI：如果有技能就用第一个，否则随机打
 	if current_character.stats.skills.size() > 0:
 		var skill = current_character.stats.skills[0]
 		var targets: Array[Character] = []
 		
-		if skill.target_type == Skill.TargetType.ALL:
-			targets.assign(players.filter(func(c): return c.is_alive()))
-		else:
-			# 过滤掉已经死亡的玩家
-			var alive_players = players.filter(func(c): return c.is_alive())
-			if alive_players.is_empty(): return
-			targets.append(alive_players.pick_random())
+		match skill.target_type:
+			Skill.TargetType.SELF:
+				targets = [current_character]
+			Skill.TargetType.ALLY_ALL:
+				targets = enemies.filter(func(c): return c.is_alive())
+			Skill.TargetType.ENEMY_ALL:
+				targets = players.filter(func(c): return c.is_alive())
+			Skill.TargetType.ALLY_SINGLE:
+				targets = [enemies.pick_random()] # 敌人的队友就是 enemies 数组
+			Skill.TargetType.ENEMY_SINGLE:
+				var alive_players = players.filter(func(c): return c.is_alive())
+				if not alive_players.is_empty():
+					targets = [alive_players.pick_random()]
 			
-		use_skill(skill, targets)
+		if not targets.is_empty():
+			use_skill(skill, targets)
+		else:
+			next_turn()
 	else:
 		push_error("敌人没有技能！")
-		next_turn()
 	
 # 效果：插入额外回合
 func grant_extra_turn(character: Character):

@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="HeroData" load_steps=7 format=3 uid="uid://cac5iv68wxobd"]
+[gd_resource type="Resource" script_class="HeroData" load_steps=8 format=3 uid="uid://cac5iv68wxobd"]
 
 [ext_resource type="SpriteFrames" uid="uid://b5qfkqtr7j3de" path="res://Resources/Heros/madoka_frames.tres" id="1_p0sg2"]
 [ext_resource type="Script" uid="uid://dc3lrxdn2n4bs" path="res://Scripts/hero_data.gd" id="2_rkut3"]
@@ -6,10 +6,13 @@
 [ext_resource type="Resource" uid="uid://h73yvld4a7su" path="res://Resources/Skills/attack.tres" id="4_16i0n"]
 [ext_resource type="Resource" uid="uid://bc0wx5h8vqg5q" path="res://Resources/Skills/vampire_strike.tres" id="5_pv2uq"]
 [ext_resource type="Resource" uid="uid://bmm2t54i6tv3j" path="res://Resources/Skills/whirlwind_strike.tres" id="6_16i0n"]
+[ext_resource type="Resource" uid="uid://bsjfvi035qs5r" path="res://Resources/Skills/heal.tres" id="7_pv2uq"]
 
 [resource]
 script = ExtResource("2_rkut3")
+max_stress = 5
 character_name = "Madoka"
 attack_animation = ExtResource("1_p0sg2")
-skills = Array[ExtResource("3_8yhnc")]([ExtResource("4_16i0n"), ExtResource("5_pv2uq"), ExtResource("6_16i0n")])
+skills = Array[ExtResource("3_8yhnc")]([ExtResource("4_16i0n"), ExtResource("5_pv2uq"), ExtResource("6_16i0n"), ExtResource("7_pv2uq")])
+max_health = 5
 metadata/_custom_type_script = "uid://bpmqbkevarnrj"

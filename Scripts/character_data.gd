@@ -10,6 +10,4 @@ class_name CharacterData
 # 数值
 @export var max_health: int = 10
 @export var attack_power: int = 1
-@export var num_of_move: int = 1
-
-# 技能组
+@export var max_action_point: int = 1

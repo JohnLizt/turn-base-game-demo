@@ -4,6 +4,9 @@
 
 [resource]
 script = ExtResource("1_tjcht")
-skill_name = "vampire_strike"
+skill_name = "Vampire_strike"
+damage = 1
+action_cost = 1
 stress_cost = 1
+target_type = 3
 metadata/_custom_type_script = "uid://f0vrjf6eenuf"

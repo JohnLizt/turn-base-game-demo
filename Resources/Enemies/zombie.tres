@@ -10,4 +10,5 @@ script = ExtResource("1_gk851")
 character_name = "Zombie"
 attack_animation = ExtResource("1_j10f2")
 skills = Array[ExtResource("3_knavk")]([ExtResource("4_wr2dh")])
+max_health = 3
 metadata/_custom_type_script = "uid://bpmqbkevarnrj"

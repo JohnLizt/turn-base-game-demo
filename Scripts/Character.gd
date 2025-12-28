@@ -12,12 +12,14 @@ signal clicked(character: Character)
 
 # 运行时实际使用的动态数值
 var health: int
+var action_point: int
 
 func _ready():
 	if not stats: push_error("Character 节点未绑定 stats 数据！")
 	
 	# 从 Resource 中克隆/读取初始值
 	health = stats.max_health
+	action_point = stats.max_action_point
 	
 	# 动态加载角色肖像（如果需要显示的话，可以在这里处理）
 	# portrait 暂未使用
@@ -33,7 +35,7 @@ func _ready():
 
 func update_ui():
 	if info_label:
-		info_label.text = "%s\nHP: %d/%d" % [stats.character_name, health, stats.max_health]
+		info_label.text = "%s\nHP: %d/%d AP: %d" % [stats.character_name, health, stats.max_health, action_point]
 
 func _input(event):
 	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:

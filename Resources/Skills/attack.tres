@@ -4,5 +4,8 @@
 
 [resource]
 script = ExtResource("1_4coga")
-skill_name = "attack"
+skill_name = "Attack"
+damage = 1
+action_cost = 1
+target_type = 3
 metadata/_custom_type_script = "uid://f0vrjf6eenuf"
