@@ -4,12 +4,13 @@ extends Control
 
 @onready var battle_manager = $BattleManager
 @onready var turn_label = $UI/TurnLabel
-@onready var attack_button = $UI/AttackButton
+@onready var skill_container = $UI/SkillContainer
 @onready var status_label = $UI/StatusLabel
 @onready var background = $Background
 
 # 状态
 var is_selecting_target: bool = false
+var selected_skill: Skill = null
 
 # 角色预制体场景路径
 var character_prefab: PackedScene = load("res://Scenes/character_2d.tscn")
@@ -36,48 +37,80 @@ func _on_turn_changed(current_character: Character):
 		return
 	turn_label.text = "当前回合：" + current_character.stats.character_name
 	
-	# 如果是敌人回合，禁用攻击按钮
-	if battle_manager.is_enemy_turn():
-		if attack_button:
-			attack_button.disabled = true
-		if status_label:
-			status_label.text = "敌人正在思考..."
-	else:
-		if attack_button:
-			attack_button.disabled = false
-		if status_label:
-			status_label.text = ""
+	# 重置选择状态
+	is_selecting_target = false
+	selected_skill = null
 	
+	# 清理并创建技能按钮
+	for child in skill_container.get_children():
+		child.queue_free()
+	
+	if battle_manager.is_player(current_character):
+		for skill in current_character.stats.skills:
+			var btn = Button.new()
+			btn.text = skill.skill_name
+			btn.pressed.connect(_on_skill_button_pressed.bind(skill))
+			skill_container.add_child(btn)
+		status_label.text = "请选择技能"
+	else:
+		status_label.text = "敌人正在行动..."
+
 
 # 战斗结束
 func _on_battle_ended(winner: Character):
-	if attack_button:
-		attack_button.disabled = true
+	# 清理所有技能按钮
+	for child in skill_container.get_children():
+		child.queue_free()
+	
+	# 更新状态显示
 	if status_label:
 		status_label.text = "战斗结束！胜利者：" + winner.stats.character_name
+	
+	if turn_label:
+		turn_label.text = "战斗结束"
+	
+	# 重置选择状态
+	is_selecting_target = false
+	selected_skill = null
 
 
-# 攻击按钮被按下
-func _on_attack_button_pressed():
+func _on_skill_button_pressed(skill: Skill):
 	if not battle_manager.is_player_turn(): return
 	
-	# 切换选择状态
-	is_selecting_target = !is_selecting_target
-	update_attack_button_ui()
-
-func update_attack_button_ui():
-	if is_selecting_target:
-		attack_button.text = "取消选择"
-		status_label.text = "请点击敌人进行攻击..."
+	# 如果点击已选中的技能，取消选择
+	if selected_skill == skill:
+		is_selecting_target = false
+		selected_skill = null
+		status_label.text = "请选择技能"
+		return
+		
+	selected_skill = skill
+	is_selecting_target = true
+	
+	if skill.target_type == Skill.TargetType.ALL:
+		status_label.text = "对全体目标: " + skill.skill_name
 	else:
-		attack_button.text = "攻击"
-		status_label.text = ""
+		status_label.text = "请选择目标: " + skill.skill_name
 
 # 处理角色点击
 func _on_character_clicked(target: Character):
-	if is_selecting_target:
-		# 检查是否点击了敌人且敌人还活着
-		if battle_manager.is_enemy(target) and target.is_alive():
-			is_selecting_target = false
-			update_attack_button_ui()
-			battle_manager.player_attack(target)
+	if is_selecting_target and selected_skill:
+		if selected_skill.target_type == Skill.TargetType.ALL:
+			# 全体技能点击任何角色都发动
+			_execute_selected_skill(battle_manager.get_alive_enemies())
+		elif battle_manager.is_enemy(target) and target.is_alive():
+			# 对单技能逻辑
+			_execute_selected_skill([target])
+
+# 处理背景点击（未被角色或 UI 拦截的点击）
+func _unhandled_input(event):
+	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
+		if is_selecting_target and selected_skill and selected_skill.target_type == Skill.TargetType.ALL:
+			_execute_selected_skill(battle_manager.get_alive_enemies())
+
+# 统一执行已选技能的逻辑
+func _execute_selected_skill(targets: Array[Character]):
+	is_selecting_target = false
+	var skill = selected_skill
+	selected_skill = null
+	battle_manager.use_skill(skill, targets)

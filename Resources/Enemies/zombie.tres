@@ -1,10 +1,13 @@
-[gd_resource type="Resource" script_class="CharacterData" load_steps=3 format=3 uid="uid://cte5nbkojbj45"]
+[gd_resource type="Resource" script_class="CharacterData" load_steps=5 format=3 uid="uid://cte5nbkojbj45"]
 
 [ext_resource type="Script" uid="uid://bpmqbkevarnrj" path="res://Scripts/character_data.gd" id="1_gk851"]
 [ext_resource type="SpriteFrames" uid="uid://sed35cmo3l34" path="res://Resources/Enemies/zombie_frames.tres" id="1_j10f2"]
+[ext_resource type="Script" uid="uid://f0vrjf6eenuf" path="res://Scripts/skill.gd" id="3_knavk"]
+[ext_resource type="Resource" uid="uid://h73yvld4a7su" path="res://Resources/Skills/attack.tres" id="4_wr2dh"]
 
 [resource]
 script = ExtResource("1_gk851")
 character_name = "Zombie"
 attack_animation = ExtResource("1_j10f2")
+skills = Array[ExtResource("3_knavk")]([ExtResource("4_wr2dh")])
 metadata/_custom_type_script = "uid://bpmqbkevarnrj"

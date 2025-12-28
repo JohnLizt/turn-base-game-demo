@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="Skill" load_steps=2 format=3 uid="uid://bmm2t54i6tv3j"]
+
+[ext_resource type="Script" uid="uid://f0vrjf6eenuf" path="res://Scripts/skill.gd" id="1_he6j8"]
+
+[resource]
+script = ExtResource("1_he6j8")
+skill_name = "whirlwind_strike"
+stress_cost = 1
+target_type = 1
+metadata/_custom_type_script = "uid://f0vrjf6eenuf"

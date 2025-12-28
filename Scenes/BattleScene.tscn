@@ -47,9 +47,9 @@ horizontal_alignment = 1
 [node name="HSeparator" type="HSeparator" parent="UI"]
 layout_mode = 2
 
-[node name="AttackButton" type="Button" parent="UI"]
+[node name="SkillContainer" type="HBoxContainer" parent="UI"]
 layout_mode = 2
-text = "攻击"
+alignment = 1
 
 [node name="StatusLabel" type="Label" parent="UI"]
 layout_mode = 2
@@ -57,4 +57,3 @@ horizontal_alignment = 1
 
 [connection signal="battle_ended" from="BattleManager" to="." method="_on_battle_ended"]
 [connection signal="turn_changed" from="BattleManager" to="." method="_on_turn_changed"]
-[connection signal="pressed" from="UI/AttackButton" to="." method="_on_attack_button_pressed"]

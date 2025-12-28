@@ -7,7 +7,7 @@ signal turn_changed(current_character: Character)  # 回合改变
 signal battle_ended(winner: Character)  # 战斗结束
 
 # 角色数组
-var players: Array[Hero] = []
+var players: Array[Character] = []
 var enemies: Array[Character] = []
 
 # 行动队列
@@ -58,7 +58,7 @@ func init_battle(player_team: Array[HeroData], enemy_team: Array[CharacterData],
 	next_turn()
 
 # 创建角色实例
-func create_character(character_data: CharacterData, index: int, is_player: bool) -> Character:
+func create_character(character_data: CharacterData, index: int, _is_player: bool) -> Character:
 	if not character_prefab:
 		push_error("角色预制体未设置！")
 		return null
@@ -82,7 +82,7 @@ func create_character(character_data: CharacterData, index: int, is_player: bool
 	var x_offset: float
 	var y_offset: float = -60 # 越远越往上靠（Y轴减小）
 
-	if is_player:
+	if _is_player:
 		x_start = -250
 		x_offset = -80  # 越远越往左靠
 	else:
@@ -158,27 +158,38 @@ func check_battle_over() -> bool:
 
 # 3. 战斗相关逻辑
 
-# 玩家攻击逻辑
-func player_attack(target: Character):
-	if current_character not in players: return
-	# 执行逻辑 
-	await current_character.play_attack_animation()
-	target.take_damage(current_character.stats.attack_power)
+# 执行技能
+func use_skill(skill: Skill, targets: Array[Character]):
+	if not current_character or targets.is_empty(): return
 	
+	# 1. 播放动画
+	await current_character.play_attack_animation()
+	
+	# 2. 执行技能逻辑
+	skill.execute(current_character, targets)
+	
+	# 3. 等待表现完成进入下一回合
+	#await get_tree().create_timer(0.5).timeout
 	next_turn()
 
 func execute_enemy_ai():
-	# 简单 AI：随机打一个玩家
-	if players.is_empty():
-		push_warning("没有可攻击的玩家！")
-		next_turn()
-		return
+	# 简单 AI：如果有技能就用第一个，否则随机打
+	if current_character.stats.skills.size() > 0:
+		var skill = current_character.stats.skills[0]
+		var targets: Array[Character] = []
 		
-	var target = players.pick_random()
-	await current_character.play_attack_animation()
-	target.take_damage(current_character.stats.attack_power)
-	
-	next_turn()
+		if skill.target_type == Skill.TargetType.ALL:
+			targets.assign(players.filter(func(c): return c.is_alive()))
+		else:
+			# 过滤掉已经死亡的玩家
+			var alive_players = players.filter(func(c): return c.is_alive())
+			if alive_players.is_empty(): return
+			targets.append(alive_players.pick_random())
+			
+		use_skill(skill, targets)
+	else:
+		push_error("敌人没有技能！")
+		next_turn()
 	
 # 效果：插入额外回合
 func grant_extra_turn(character: Character):
@@ -194,8 +205,20 @@ func get_all_characters() -> Array[Character]:
 
 # 接口方法：判断角色是否属于敌人阵营
 func is_enemy(character: Character) -> bool:
-	return enemies.has(character)
+	return character in enemies
 
 # 接口方法：判断角色是否属于玩家阵营
 func is_player(character: Character) -> bool:
-	return players.has(character)
+	return character in players
+
+# 接口方法：获取所有存活的敌人
+func get_alive_enemies() -> Array[Character]:
+	var list: Array[Character] = []
+	list.assign(enemies.filter(func(c): return c.is_alive()))
+	return list
+
+# 接口方法：获取所有存活的玩家
+func get_alive_players() -> Array[Character]:
+	var list: Array[Character] = []
+	list.assign(players.filter(func(c): return c.is_alive()))
+	return list

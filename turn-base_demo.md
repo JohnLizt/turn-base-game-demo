@@ -10,4 +10,5 @@
   - [x] enemy
     - [x] multi_enemies
   - [ ] skills
+    - [x] basic skill system
     - [ ] battle effect (buff / dot)
